@@ -8,8 +8,6 @@ const login = (credentionals) => {
      return axios.get('/user').then(data => {
           const { id } = data.data;
           //put in storage user data. (redux)
-          console.log(id);
-
           return id;
      });
 

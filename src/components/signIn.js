@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from "react";
 import { login } from './auth/login'
-
+import bg from '../images/sign-back.png';
 
 function SignIn(props) {
 
@@ -18,7 +18,7 @@ function SignIn(props) {
   }
 
     return (
-      <div className="main-container" style={{backgroundImage: 'url("./images/sign-back.png")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
+      <div className="main-container" style={{backgroundImage: `url(${bg})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
         <div className="inner-container">
           <h1>Welcome to Chat</h1>
           <p>Lorem ipsum dolor sit amet, consectetur <br /> adipiscing elit. </p>
@@ -33,7 +33,7 @@ function SignIn(props) {
             </div>
             <div className="checkbox">
               <input type="checkbox" defaultChecked="checked" />
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+              <p>Lorem ipsum dolor sit amet, consectetur <br /> adipiscing elit. </p>
             </div>
             <button type="submit">Go</button>
           </form>
