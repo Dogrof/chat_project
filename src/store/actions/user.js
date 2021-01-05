@@ -1,5 +1,6 @@
 import userApi from "../../services/api/userApi";
 import axios from "../../services/api/axios_conf";
+import {browserHistory} from 'react-router'
 
 const setUser = (data) => ({
   type: "SET_USER",
@@ -24,11 +25,5 @@ export const loginAction = (credentials) => (dispatch) => {
         dispatch(setUser(data));
       });
     })
-    .then(() => {
-      userApi.getCurrentDialog().then((data) => {
-        if (data) {
-          dispatch(setUserCurrentDialog(data));
-        }
-      });
-    });
+  
 };
