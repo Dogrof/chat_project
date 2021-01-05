@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginAction } from "../store/actions/user";
+import main_back from '../images/sign-back.png';
 
 function SignIn(props) {
   const [mail, setMail] = useState("");
@@ -19,8 +20,9 @@ function SignIn(props) {
     <div
       className="main-container"
       style={{
-        backgroundImage: 'url("./images/sign-back.png")',
+        backgroundImage: "url(" + main_back + ")",
         backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
         backgroundSize: "cover",
       }}
     >
@@ -29,12 +31,12 @@ function SignIn(props) {
         <p>
           Lorem ipsum dolor sit amet, consectetur <br /> adipiscing elit.{" "}
         </p>
-        <form action="/" method="post" onSubmit={handleSubmit}>
+        <form autocomplete="off" action="/" method="post" onSubmit={handleSubmit}>
           <div className="field-wrap">
             <input
               type="text"
               required
-              autoComplete="off"
+              autocomplete="off"
               placeholder="Login"
               value={mail}
               onChange={(e) => setMail(e.target.value)}
@@ -44,7 +46,7 @@ function SignIn(props) {
             <input
               type="password"
               required
-              autoComplete="off"
+              autocomplete="off"
               placeholder="Password"
               value={pass}
               onChange={(e) => setPass(e.target.value)}

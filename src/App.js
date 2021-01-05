@@ -13,7 +13,6 @@ import Join from "./components/join";
 
 function App() {
   return (
-    <div className="main-container">
       <Switch>
         <Route
           exact
@@ -25,7 +24,6 @@ function App() {
         <Route path="/auth" component={SignIn} />
         <Route path="/join"  render={()=>AuthMiddleware()  ? <Join/> : <Redirect to="/auth" />}/>
       </Switch>
-    </div>
   );
 }
 

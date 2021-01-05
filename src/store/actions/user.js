@@ -1,6 +1,7 @@
 import userApi from "../../services/api/userApi";
 import axios from "../../services/api/axios_conf";
-import {browserHistory} from 'react-router'
+import socketInit from "./socket-init.js";
+// import {browserHistory} from 'react-router'
 
 const setUser = (data) => ({
   type: "SET_USER",
@@ -23,7 +24,16 @@ export const loginAction = (credentials) => (dispatch) => {
     .then(() => {
       userApi.getUser().then((data) => {
         dispatch(setUser(data));
+        dispatch(socketInit());
       });
     })
-  
+    .then(() => {
+      userApi.setChatInfo().then((data) => {
+        if (data) {
+          //browserHistory.push('/chat')
+        }else{
+          //browserHistory.push('/join')
+        }
+      });
+    });
 };
