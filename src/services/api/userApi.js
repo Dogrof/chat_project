@@ -21,15 +21,16 @@ const userApi = {
         console.log(err);
       });
   },
-  getCurrentDialog: () => {
+  setChatInfo: (id) => {
     return axios
-      .get("/user/dialog")
-      .then((data) => {
-        return data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    axios.post('/client/chat/join', {type:id}).then(data => {
+
+
+      return data;
+      //
+    }).catch(err =>{
+      console.log("Response error");
+    })
   },
 };
 
