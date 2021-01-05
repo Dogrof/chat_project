@@ -4,6 +4,7 @@ import {useEffect} from "react";
 import {useState} from "react";
 import {setChatInfo} from "../store/actions/chat";
 import { useDispatch } from 'react-redux';
+import { withRouter } from "react-router";
 
 function Join(props){
   const dispatch = useDispatch()
@@ -19,11 +20,13 @@ function Join(props){
 
 const handleCLick = (e) => {
   axios.post('/client/chat/join', {type:e.target.id}).then(data => {
-      dispatch(setChatInfo(data));
+      dispatch(setChatInfo(data.data));
+      console.log(data.data);
 
      props.history.push('/chat');
     //
   }).catch(err =>{
+      console.log(err);
     console.log("Response error");
   })
 
@@ -44,4 +47,4 @@ return (
 );
 }
 
-export default Join;
+export default withRouter(Join);
