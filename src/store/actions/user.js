@@ -1,5 +1,6 @@
 import userApi from "../../services/api/userApi";
 import axios from "../../services/api/axios_conf";
+import socketInit from "./socket-init.js";
 // import {browserHistory} from 'react-router'
 
 const setUser = (data) => ({
@@ -23,6 +24,7 @@ export const loginAction = (credentials) => (dispatch) => {
     .then(() => {
       userApi.getUser().then((data) => {
         dispatch(setUser(data));
+        dispatch(socketInit());
       });
     })
     .then(() => {
