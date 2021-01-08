@@ -45,7 +45,6 @@ p, span, a, h1, h2, h3{
 }
 .main-container .inner-container form .field-wrap input{
   background: rgba(242, 242, 242, 0.4);
-  background-color: black !important;
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   border: unset;
@@ -55,6 +54,9 @@ p, span, a, h1, h2, h3{
   padding: 0 20px;
   color: white;
   -webkit-appearance: none;
+}
+.main-container .inner-container form .field-wrap input::placeholder{
+  color: white;
 }
 input, input[type="password"], input[type="search"] {
    cursor: auto;

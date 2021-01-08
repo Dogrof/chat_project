@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { loginAction } from "../store/actions/user";
 import main_back from '../images/sign-back.png';
