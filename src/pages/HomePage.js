@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import Chat from "../components/chat";
+import Chat from "../components/Chat";
 import Groups from "../components/groups";
 
 const HomePage = () => {

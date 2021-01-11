@@ -1,11 +1,19 @@
-import React from 'react'
+import React from 'react';
+import Sidebar from './Sidebar';
+import MessagesHistory from './MessagesHistory';
+import DialogsList from './DialogsList';
 
 const Chat = () => {
   return (
-    <div>
-      <h1>Chat</h1>
+    <div className='chat'>
+      <Sidebar />
+      <MessagesHistory />
+      <div className='chat__dialogs'>
+        <DialogsList />
+      </div>
+    
     </div>
-  )
-}
+  );
+};
 
-export default Chat
+export default Chat;

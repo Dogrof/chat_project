@@ -1,0 +1,30 @@
+.topbar {
+  box-sizing: border-box;
+  padding: 25px 80px 25px 30px;
+  background: #ffffff;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .burger {
+    width: 32px;
+    cursor: pointer;
+
+    span {
+      display: block;
+      width: 32px;
+      height: 4px;
+      background: #cfcfcf;
+      border-radius: 3px;
+      &:not(:last-of-type) {
+        margin-bottom: 4px;
+      }
+    }
+  }
+  h2 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 24px;
+    color: rgba(9, 32, 63, 0.6);
+  }
+}

@@ -1,29 +1,34 @@
-import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
-import "./App.css";
-import "./css/signIn.css";
-import { AuthMiddleware } from './middlewares/AuthMiddleware'
+import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import './App.css';
+
+import { AuthMiddleware } from './middlewares/AuthMiddleware';
 
 // import chat from './components/chat';
 // import groups from './components/groups';
 // import sidebar from './components/sidebar';
-import SignIn from "./components/signIn";
-import HomePage from "./pages/HomePage";
-import Join from "./components/join";
+import SignIn from './components/signIn';
+import Join from './components/Join';
+import Chat from './components/Chat';
+import HomePage from './pages/HomePage';
 
 function App() {
   return (
-    <div className="main-container">
+    <div className='main-container'>
       <Switch>
         <Route
           exact
-          path="/"
+          path='/'
           render={() =>
-            window.localStorage.TOKEN ? <HomePage /> : <Redirect to="/auth" />
+            window.localStorage.TOKEN ? <HomePage /> : <Redirect to='/auth' />
           }
         />
-        <Route path="/auth" component={SignIn} />
-        <Route path="/join"  render={()=>AuthMiddleware()  ? <Join/> : <Redirect to="/auth" />}/>
+        <Route path='/chat' component={Chat} />
+        <Route path='/auth' component={SignIn} />
+        <Route
+          path='/join'
+          render={() => (AuthMiddleware() ? <Join /> : <Redirect to='/auth' />)}
+        />
       </Switch>
     </div>
   );

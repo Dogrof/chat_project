@@ -1,0 +1,39 @@
+.sidebar {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  color: #fff;
+  width: calc(515 / 1920 * 100%);
+  padding-top: 120px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(
+      359.6deg,
+      #09203f 1.5%,
+      #32516e 58.92%,
+      #537895 106.91%,
+      #537895 106.91%
+    );
+    z-index: -1;
+  }
+  text-align: center;
+  .avatar {
+    width: 118px;
+    height: 118px;
+    margin: 0 auto;
+    font-size: 42px;
+  }
+  .btn {
+    margin: auto auto 30px;
+  }
+}

@@ -1,0 +1,23 @@
+@import './components/chat';
+@import './components/dialogs';
+@import './components/messages';
+@import './components/sidebar';
+@import './components/btn';
+@import './components/avatar';
+@import './components/topbar';
+@import './components/chatInput';
+@import './components/join';
+
+html,
+body #root,
+.main-container,
+.wrapper {
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  margin: 0;
+  background: #f2f2f2;
+  height: 100%;
+  overflow: hidden;
+}
