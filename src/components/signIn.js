@@ -5,8 +5,8 @@ import { loginAction } from '../store/actions/user';
 import main_back from '../images/sign-back.png';
 
 function SignIn(props) {
-  const [mail, setMail] = useState('');
-  const [pass, setPass] = useState('');
+  const [mail, setMail] = useState('admin@gmail.com');
+  const [pass, setPass] = useState('test123');
   const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
@@ -18,7 +18,7 @@ function SignIn(props) {
 
   return (
     <div
-      className='main-container'
+      className='sign-in'
       style={{
         backgroundImage: 'url(' + main_back + ')',
         backgroundRepeat: 'no-repeat',
@@ -29,7 +29,7 @@ function SignIn(props) {
       <div className='inner-container'>
         <h1>Welcome to Chat</h1>
         <p>
-          Lorem ipsum dolor sit amet, consectetur <br /> adipiscing elit.{' '}
+          Lorem ipsum dolor sit amet, consectetur <br /> adipiscing elit.
         </p>
         <form
           autocomplete='off'
@@ -41,7 +41,7 @@ function SignIn(props) {
             <input
               type='text'
               required
-              autocomplete='off'
+              autoComplete='off'
               placeholder='Login'
               value={mail}
               onChange={(e) => setMail(e.target.value)}
@@ -51,7 +51,7 @@ function SignIn(props) {
             <input
               type='password'
               required
-              autocomplete='off'
+              autoComplete='off'
               placeholder='Password'
               value={pass}
               onChange={(e) => setPass(e.target.value)}
@@ -67,10 +67,5 @@ function SignIn(props) {
     </div>
   );
 }
-
-// export default axios.create({
-//     baseURL: "https://randomuser.me/api/",
-//     responseType: "json"
-//   });
 
 export default SignIn;

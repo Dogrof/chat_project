@@ -1,15 +1,12 @@
 const AuthMiddleware = async (component) => {
+  // if(!window.localStorage.get('TOKEN')) {
+  //     // props.history.push('/');
+  //     // console.log(props);
+  // }
 
-    console.log(123);
-    // if(!window.localStorage.get('TOKEN')) {
-    //     // props.history.push('/');
-    //     // console.log(props);
-    // }
+  return component;
 
-    return component;
-
-    // console.log(window.localStorage.get('TOKEN'));
-
+  // console.log(window.localStorage.get('TOKEN'));
 };
 
 export { AuthMiddleware };

@@ -1,25 +1,23 @@
 import React, { useEffect } from 'react';
-import axios from '../services/api/axios_conf';
+import { useDispatch, useSelector } from 'react-redux';
+import {getChatInfo} from '../store/actions/chat'
 import Sidebar from './Sidebar';
 import MessagesHistory from './MessagesHistory';
 import DialogsList from './DialogsList';
-import { useDispatch, useSelector } from 'react-redux';
+
 const Chat = () => {
   const { chat } = useSelector(({ chat }) => ({
     chat: chat.data,
   }));
   useEffect(() => {
-    // axios.get('/client/chat').then((data) => {
-    //   console.log(data);
-    // });
-  }, []);
+    getChatInfo()
+  }, [chat]);
   return (
     <div className='chat'>
-      {console.log(chat)}
       <Sidebar />
       <MessagesHistory />
       <div className='chat__dialogs'>
-        <DialogsList members={chat.data.members || []} />
+        <DialogsList members={chat?.members || []} />
       </div>
     </div>
   );

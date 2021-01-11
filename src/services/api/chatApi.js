@@ -1,16 +1,13 @@
 import axios from '../api/axios_conf';
-
-const userApi = {
-  login: () => {
-    return axios
-      .post('/auth/login', { login: mail, password: pass })
-      .then((data) => {
-        return data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+const chatApi = {
+  getChat: async (id) => {
+    try {
+      const data = await axios.post('/client/chat/join', { type: id });
+      return data;
+    } catch (error) {
+      throw new Error('Response error', error);
+    }
   },
 };
 
-export default userApi;
+export default chatApi;

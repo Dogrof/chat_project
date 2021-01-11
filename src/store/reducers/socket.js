@@ -1,11 +1,12 @@
 const initialState = {
-  io: null
+  io: null,
 };
 
 const socket = function (state = initialState, { type, payload }) {
   switch (type) {
-    case "INIT_SOCKET":
-      return {
+    case 'INIT_SOCKET':
+      console.log(123);
+    return {
         io: payload,
       };
 
