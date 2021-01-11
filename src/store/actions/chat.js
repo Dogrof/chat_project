@@ -13,6 +13,7 @@ const addMessage = (msg) => ({
 const getChatInfo = (id) => async (dispatch) => {
   const data = await chatApi.getChat(id);
   dispatch(setChatInfo(data.data));
+  return data
 };
 
 export { setChatInfo, getChatInfo, addMessage };

@@ -1,9 +1,9 @@
 import userApi from '../../services/api/userApi';
 import axios from '../../services/api/axios_conf';
-import socketInit from './socket.js';
-import browserHistory from 'history/createBrowserHistory';
+import { socketInit } from './socket.js';
+import { createBrowserHistory } from 'history';
 
-const setUser = (data) => ({
+export const setUser = (data) => ({
   type: 'SET_USER',
   payload: data,
 });

@@ -1,35 +1,38 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import './App.css';
+import { useSelector } from 'react-redux';
 
 import { AuthMiddleware } from './middlewares/AuthMiddleware';
 
-// import chat from './components/chat';
-// import groups from './components/groups';
-// import sidebar from './components/sidebar';
-import SignIn from './components/signIn';
+import SignIn from './components/SignIn';
 import Join from './components/Join';
 import Chat from './components/Chat';
-import HomePage from './pages/HomePage';
 
 function App() {
+  const { isAuth, chat } = useSelector(({ user, chat }) => ({
+    isAuth: user.isAuth,
+    chat: chat.data,
+  }));
   return (
     <Switch>
       <Route
         exact
         path='/'
-        render={() =>
-          window.localStorage.TOKEN ? <HomePage /> : <Redirect to='/auth' />
-        }
+        render={() => (isAuth ? <Join /> : <Redirect to='/auth' />)}
       />
-      <Route path='/chat' component={Chat} />
-      <Route path='/auth' component={SignIn} />
+      <Route
+        path='/chat'
+        // render={() => (isAuth ? <Chat /> : <Redirect to='/auth' />)}
+        render={() => <Chat />}
+      />
       <Route
         path='/join'
-        render={() => (AuthMiddleware() ? <Join /> : <Redirect to='/auth' />)}
+        // render={() => (isAuth ? <Join /> : <Redirect to='/auth' />)}
+        render={() => <Join chat={chat} />}
       />
+      <Route path='/auth' component={SignIn} />
     </Switch>
   );
 }
 
-export default App;
+export default memo(App);

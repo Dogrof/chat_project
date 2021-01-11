@@ -3,7 +3,7 @@ import Topbar from './Topbar';
 import MessagesList from './MessagesList';
 import ChatInput from './ChatInput';
 import { useDispatch, useSelector } from 'react-redux';
-const MessagesHistory = () => {
+const MessagesHistory = ({ socket }) => {
   const { chat } = useSelector(({ chat }) => ({
     chat: chat.data,
   }));
@@ -12,7 +12,7 @@ const MessagesHistory = () => {
     <div className='messages__history'>
       <Topbar />
       <MessagesList messages={chat?.messages} />
-      <ChatInput chat={chat} />
+      <ChatInput chat={chat} socket={socket} />
     </div>
   );
 };

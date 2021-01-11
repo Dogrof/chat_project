@@ -12,4 +12,4 @@ const socketInit = () => ({
   }),
 });
 
-export default socketInit;
+export { socketInit };

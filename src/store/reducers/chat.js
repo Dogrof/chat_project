@@ -1,5 +1,5 @@
 const initialState = {
-  data: {},
+  data: null,
 };
 
 const chat = function (state = initialState, { type, payload }) {

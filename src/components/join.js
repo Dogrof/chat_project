@@ -6,16 +6,21 @@ import { useDispatch } from 'react-redux';
 
 import joinBg from '../images/join-bg.png';
 
-function Join({ history }) {
+function Join({ history, chat }) {
   const dispatch = useDispatch();
   const [chatTypes, setchatTypes] = useState([]);
 
   useEffect(() => {
-    // Обновляем заголовок документа с помощью API браузера
     axios.get('/chat-types').then((res) => {
       const chatTypes = res.data;
       setchatTypes(chatTypes);
     });
+  }, []);
+  useEffect(() => {
+    const data = dispatch(getChatInfo());
+    if (data) {
+      history.push('/chat');
+    }
   }, []);
 
   const handleCLick = (e) => {
