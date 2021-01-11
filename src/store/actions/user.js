@@ -12,6 +12,7 @@ export const loginAction = (credentials) => (dispatch) => {
   return userApi
     .login(credentials)
     .then(({ data }) => {
+      console.log(data);
       const { access_token } = data;
       window.localStorage.TOKEN = access_token;
       axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
@@ -26,9 +27,9 @@ export const loginAction = (credentials) => (dispatch) => {
     .then(() => {
       userApi.setChatInfo().then((data) => {
         if (data) {
-          browserHistory.push('/chat');
+          // browserHistory.push('/chat');
         } else {
-          browserHistory.push('/join');
+          // browserHistory.push('/join');
         }
       });
     });

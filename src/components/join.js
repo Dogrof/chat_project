@@ -11,7 +11,7 @@ function Join(props) {
 
   useEffect(() => {
     // Обновляем заголовок документа с помощью API браузера
-    axios.get('/api/chat-types').then((res) => {
+    axios.get('/chat-types').then((res) => {
       const chatTypes = res.data;
       setchatTypes(chatTypes);
     });

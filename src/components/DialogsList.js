@@ -103,17 +103,17 @@ const dialogs = [
   },
 ];
 
-const DialogsList = () => {
+const DialogsList = ({ members }) => {
   return (
     <div className='dialogs'>
-      {dialogs.map((dialog) => {
+      {members.map((member) => {
         return (
-          <div className='dialogs__item' key={dialog.id}>
+          <div className='dialogs__item' key={member.id}>
             <div className='dialogs__item-content'>
-              <h3>{dialog.user.name}</h3>
-              <p>{dialog.lastMessage.text}</p>
+              <h3>{member.name}</h3>
+              {/* <p>{dialog.lastMessage.text}</p> */}
             </div>
-            <Avatar name={dialog.user.name} />
+            <Avatar name={member.name} />
           </div>
         );
       })}

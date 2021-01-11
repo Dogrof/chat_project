@@ -12,7 +12,7 @@ function SignIn(props) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     dispatch(loginAction({ mail, pass })).then(() => {
-      props.history.push('/');
+      props.history.push('/join');
     });
   };
 
