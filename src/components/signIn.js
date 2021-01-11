@@ -1,60 +1,67 @@
-import React from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { loginAction } from "../store/actions/user";
+import React from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginAction } from '../store/actions/user';
+import main_back from '../images/sign-back.png';
 
 function SignIn(props) {
-  const [mail, setMail] = useState("");
-  const [pass, setPass] = useState("");
+  const [mail, setMail] = useState('');
+  const [pass, setPass] = useState('');
   const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     dispatch(loginAction({ mail, pass })).then(() => {
-      props.history.push("/");
+      props.history.push('/');
     });
   };
 
   return (
     <div
-      className="main-container"
+      className='main-container'
       style={{
-        backgroundImage: 'url("./images/sign-back.png")',
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
+        backgroundImage: 'url(' + main_back + ')',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
       }}
     >
-      <div className="inner-container">
+      <div className='inner-container'>
         <h1>Welcome to Chat</h1>
         <p>
-          Lorem ipsum dolor sit amet, consectetur <br /> adipiscing elit.{" "}
+          Lorem ipsum dolor sit amet, consectetur <br /> adipiscing elit.{' '}
         </p>
-        <form action="/" method="post" onSubmit={handleSubmit}>
-          <div className="field-wrap">
+        <form
+          autocomplete='off'
+          action='/'
+          method='post'
+          onSubmit={handleSubmit}
+        >
+          <div className='field-wrap'>
             <input
-              type="text"
+              type='text'
               required
-              autoComplete="off"
-              placeholder="Login"
+              autocomplete='off'
+              placeholder='Login'
               value={mail}
               onChange={(e) => setMail(e.target.value)}
             />
           </div>
-          <div className="field-wrap">
+          <div className='field-wrap'>
             <input
-              type="password"
+              type='password'
               required
-              autoComplete="off"
-              placeholder="Password"
+              autocomplete='off'
+              placeholder='Password'
               value={pass}
               onChange={(e) => setPass(e.target.value)}
             />
           </div>
-          <div className="checkbox">
-            <input type="checkbox" defaultChecked="checked" />
+          <div className='checkbox'>
+            <input type='checkbox' defaultChecked='checked' />
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
           </div>
-          <button type="submit">Go</button>
+          <button type='submit'>Go</button>
         </form>
       </div>
     </div>

@@ -14,23 +14,21 @@ import HomePage from './pages/HomePage';
 
 function App() {
   return (
-    <div className='main-container'>
-      <Switch>
-        <Route
-          exact
-          path='/'
-          render={() =>
-            window.localStorage.TOKEN ? <HomePage /> : <Redirect to='/auth' />
-          }
-        />
-        <Route path='/chat' component={Chat} />
-        <Route path='/auth' component={SignIn} />
-        <Route
-          path='/join'
-          render={() => (AuthMiddleware() ? <Join /> : <Redirect to='/auth' />)}
-        />
-      </Switch>
-    </div>
+    <Switch>
+      <Route
+        exact
+        path='/'
+        render={() =>
+          window.localStorage.TOKEN ? <HomePage /> : <Redirect to='/auth' />
+        }
+      />
+      <Route path='/chat' component={Chat} />
+      <Route path='/auth' component={SignIn} />
+      <Route
+        path='/join'
+        render={() => (AuthMiddleware() ? <Join /> : <Redirect to='/auth' />)}
+      />
+    </Switch>
   );
 }
 

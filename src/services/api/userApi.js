@@ -1,9 +1,9 @@
-import axios from "../api/axios_conf";
+import axios from '../api/axios_conf';
 
 const userApi = {
   login: ({ mail, pass }) => {
     return axios
-      .post("/auth/login", { login: mail, password: pass })
+      .post('/auth/login', { email: mail, password: pass })
       .then((data) => {
         return data;
       })
@@ -13,7 +13,7 @@ const userApi = {
   },
   getUser: () => {
     return axios
-      .get("/user")
+      .get('/user')
       .then(({ data }) => {
         return data;
       })
@@ -21,14 +21,14 @@ const userApi = {
         console.log(err);
       });
   },
-  getCurrentDialog: () => {
+  setChatInfo: (id) => {
     return axios
-      .get("/user/dialog")
+      .post('/client/chat/join', { type: id })
       .then((data) => {
         return data;
       })
       .catch((err) => {
-        console.log(err);
+        console.log('Response error');
       });
   },
 };

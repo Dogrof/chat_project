@@ -1,7 +1,7 @@
 import axios from '../api/axios_conf';
 
 const userApi = {
-  login: ({ mail, pass }) => {
+  login: () => {
     return axios
       .post('/auth/login', { login: mail, password: pass })
       .then((data) => {
@@ -11,7 +11,6 @@ const userApi = {
         console.log(err);
       });
   },
-  
 };
 
 export default userApi;
