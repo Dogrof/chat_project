@@ -1,23 +1,27 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Topbar from './Topbar';
 import MessagesList from './MessagesList';
 import ChatInput from './ChatInput';
-import { useSelector } from 'react-redux';
-const MessagesHistory = ({ socket }) => {
-  const { chat, currentChat } = useSelector(({ chat }) => ({
-    chat: chat.data,
-    currentChat: chat.currentChatId,
-  }));
 
+const MessagesHistory = ({
+  socket,
+  chat,
+  userRole,
+  currentChat,
+  currentChatId,
+}) => {
   return (
     <div className='messages__history'>
-      <Topbar />
+      <Topbar chat={currentChat} />
+
       {currentChat ? (
-        <MessagesList messages={chat?.messages} />
+        <>
+          <MessagesList messages={currentChat?.messages} />
+          <ChatInput chat={currentChat} socket={socket} userRole={userRole} />
+        </>
       ) : (
         <div className='messages__empty'></div>
       )}
-      <ChatInput chat={chat} socket={socket} />
     </div>
   );
 };

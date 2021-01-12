@@ -15,19 +15,24 @@ function Join({ history }) {
 
   useEffect(() => {
     let data;
-    if (user?.role.name === 'Admin') {
-      data = dispatch(getAdminChatInfo());
-    } else {
-      data = dispatch(getChatInfo());
-    }
-    if (data) {
-      history.push('/chat');
-    } else {
-      axios.get('/chat-types').then((res) => {
-        const chatTypes = res.data;
-        setchatTypes(chatTypes);
-      });
-    }
+    const fetchData = async () => {
+      if (user?.role?.name === 'Admin') {
+        data = await dispatch(getAdminChatInfo());
+      }
+      if (user?.role?.name === 'Client') {
+        data = await dispatch(getChatInfo());
+      }
+
+      if (data) {
+        history.push('/chat');
+      } else {
+        axios.get('/chat-types').then((res) => {
+          const chatTypes = res.data;
+          setchatTypes(chatTypes);
+        });
+      }
+    };
+    fetchData();
   }, [dispatch, history, user]);
 
   const handleCLick = (e) => {

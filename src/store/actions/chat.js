@@ -18,14 +18,38 @@ const joinChat = (id) => async (dispatch) => {
 
 const getAdminChatInfo = () => async (dispatch) => {
   const data = await chatApi.getAdminChat();
+  console.log(data);
   dispatch(setChatInfo(data.data));
   return data;
 };
 
 const getChatInfo = () => async (dispatch) => {
   const data = await chatApi.getChat();
-  dispatch(setChatInfo(data.data));
+  dispatch(setCurrentChat(data.data));
   return data;
 };
 
-export { setChatInfo, getChatInfo, joinChat, addMessage, getAdminChatInfo };
+const setCurrentChatId = (id) => ({
+  type: 'SET_CURRENT_CHAT_ID',
+  payload: id,
+});
+
+const setCurrentChat = (data) => ({
+  type: 'SET_CURRENT_CHAT',
+  payload: data,
+});
+
+const getCurrentChatAction = (id) => async (dispatch) => {
+  const data = await chatApi.getMessages(id);
+  dispatch(setCurrentChat(data.data));
+};
+
+export {
+  setChatInfo,
+  getChatInfo,
+  joinChat,
+  addMessage,
+  getAdminChatInfo,
+  setCurrentChatId,
+  getCurrentChatAction,
+};

@@ -1,18 +1,28 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getCurrentChatAction } from '../store/actions/chat';
+import clsx from 'clsx';
 import Avatar from './Avatar';
 
-const ChatsList = ({ chats }) => {
+const ChatsList = ({ chats, currentChatId }) => {
+  const dispatch = useDispatch();
+  const handleChatClick = (id) => () => {
+    dispatch(getCurrentChatAction(id));
+  };
   return (
     <div className='chats'>
       {chats &&
         chats.map((chat) => {
           return (
-            <div className='chats__item' key={chat._id}>
+            <div
+              className={clsx('chats__item', {
+                'chats__item--active': currentChatId === chat._id,
+              })}
+              key={chat._id}
+              onClick={handleChatClick(chat._id)}
+            >
               <div className='chats__item-content'>
                 <h3>{chat.name}</h3>
-                {/* <p>{dialog.lastMessage.text}</p> */}
               </div>
               <Avatar name={chat.name} />
             </div>

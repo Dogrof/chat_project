@@ -21,10 +21,21 @@
       }
     }
   }
-  h2 {
-    margin: 0;
-    font-weight: 600;
-    font-size: 24px;
-    color: rgba(9, 32, 63, 0.6);
+  &__content {
+    text-align: right;
+    h2 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 24px;
+      color: rgba(9, 32, 63, 0.6);
+    }
+    span {
+      font-size: 16px;
+      font-weight: 600;
+      color: rgba(9, 32, 63, 0.4);
+    }
+    .members {
+      background: #fff;
+    }
   }
 }

@@ -1,8 +1,16 @@
 .chats {
   &__item {
+    padding: 15px 25px;
+    box-sizing: border-box;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    &--active {
+      background: #e2e2e2;
+    }
+    &:hover {
+      background: #dcdbdb;
+    }
     &:not(:last-of-type) {
       margin-bottom: 25px;
     }

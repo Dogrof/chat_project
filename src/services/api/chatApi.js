@@ -8,7 +8,7 @@ const chatApi = {
       console.log('Response error', error);
     }
   },
-  getChat: async (id) => {
+  getChat: async () => {
     try {
       const data = await axios.get('/client/chat');
       return data;
@@ -16,9 +16,17 @@ const chatApi = {
       console.log('Response error', error);
     }
   },
-  getAdminChat: async (id) => {
+  getAdminChat: async () => {
     try {
       const data = await axios.get('/admin/chat');
+      return data;
+    } catch (error) {
+      console.log('Response error', error);
+    }
+  },
+  getMessages: async (id) => {
+    try {
+      const data = await axios.get(`/admin/chat/${id}`);
       return data;
     } catch (error) {
       console.log('Response error', error);
