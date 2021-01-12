@@ -1,13 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
-import "./index.css";
-import "./scss/index.scss";
-import App from "./App";
-import { Provider } from "react-redux";
-import reportWebVitals from "./reportWebVitals";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import './index.css';
+import './scss/index.scss';
+import App from './App';
+import { Provider } from 'react-redux';
+import axiosInstance from './services/api/axios_conf';
+import { logoutAction } from './store/actions/user';
+import reportWebVitals from './reportWebVitals';
 
-import store from "./store/store";
+import store from './store/store';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,7 +19,7 @@ ReactDOM.render(
       </Provider>
     </Router>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

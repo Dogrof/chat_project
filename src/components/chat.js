@@ -1,37 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getChatInfo } from '../store/actions/chat';
+import { getChatInfo, getAdminChatInfo } from '../store/actions/chat';
 import { setUser } from '../store/actions/user';
 import userApi from '../services/api/userApi';
 import { socketInit } from '../store/actions/socket';
 import Sidebar from './Sidebar';
 import MessagesHistory from './MessagesHistory';
-import DialogsList from './DialogsList';
+import DialogsList from './ChatsList';
 
 const Chat = () => {
   const dispatch = useDispatch();
-  const { chat, socket, user } = useSelector(({ chat, socket, user }) => ({
-    chat: chat.data,
-    socket: socket.io,
-    user: user.data,
-  }));
-  useEffect(() => {
-    if (!chat) {
-      dispatch(getChatInfo());
-    }
+  const { currentChat, chat, socket, user } = useSelector(
+    ({ chat, socket, user }) => ({
+      chat: chat.data,
+      currentChat: chat.currentChatId,
+      socket: socket.io,
+      user: user.data,
+    })
+  );
 
+  useEffect(() => {
     if (!user) {
       userApi.getUser().then((data) => {
-        console.log(123);
         dispatch(setUser(data));
         dispatch(socketInit());
       });
     }
-  }, [chat, user]);
+  }, [user, user, dispatch]);
+
+  useEffect(() => {
+    let data;
+    if (!chat) {
+      if (user?.role.name === 'Admin') {
+        data = dispatch(getAdminChatInfo());
+      }
+      if (user?.role.name === 'Client') {
+        data = dispatch(getChatInfo());
+      }
+    }
+  }, [chat, user, dispatch]);
+
   return (
     <div className='chat'>
       <Sidebar />
-      <MessagesHistory socket={socket} />
+      {currentChat ? (
+        <MessagesHistory socket={socket} />
+      ) : (
+        <div className='messages__empty'>Choose chat to start messaging</div>
+      )}
+
       <div className='chat__dialogs'>
         <DialogsList members={chat?.members || []} />
       </div>
@@ -39,4 +56,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default memo(Chat);

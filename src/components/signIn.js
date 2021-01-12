@@ -9,11 +9,11 @@ function SignIn(props) {
   const [pass, setPass] = useState('test123');
   const dispatch = useDispatch();
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
-    dispatch(loginAction({ mail, pass })).then(() => {
-      props.history.push('/join');
-    });
+
+    await dispatch(loginAction({ mail, pass }));
+    props.history.push('/join');
   };
 
   return (

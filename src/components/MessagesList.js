@@ -27,12 +27,12 @@ const MessagesList = ({ messages }) => {
           className={`messages__item ${
             message?.isMe ? 'messages__item--is-me' : ''
           }`}
-          key={message.id}
+          key={message._id}
         >
           <Avatar name='J' />
           <div className='messages__item-content'>
             {/* <p>{message.text}</p> */}
-            <p>{message.text.iv}</p>
+            <p>{message.text}</p>
           </div>
         </div>
       ))}

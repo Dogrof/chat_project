@@ -3,6 +3,12 @@
   flex: 1;
   box-sizing: border-box;
   padding: 30px;
+  &__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
   &__history {
     flex: 1;
     display: flex;
@@ -28,6 +34,7 @@
       box-sizing: border-box;
       word-break: break-word;
     }
+
     p {
       display: inline-block;
       margin: 0;

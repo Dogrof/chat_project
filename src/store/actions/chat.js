@@ -10,10 +10,22 @@ const addMessage = (msg) => ({
   payload: msg,
 });
 
-const getChatInfo = (id) => async (dispatch) => {
-  const data = await chatApi.getChat(id);
+const joinChat = (id) => async (dispatch) => {
+  const data = await chatApi.joinChat(id);
   dispatch(setChatInfo(data.data));
-  return data
+  return data;
 };
 
-export { setChatInfo, getChatInfo, addMessage };
+const getAdminChatInfo = () => async (dispatch) => {
+  const data = await chatApi.getAdminChat();
+  dispatch(setChatInfo(data.data));
+  return data;
+};
+
+const getChatInfo = () => async (dispatch) => {
+  const data = await chatApi.getChat();
+  dispatch(setChatInfo(data.data));
+  return data;
+};
+
+export { setChatInfo, getChatInfo, joinChat, addMessage, getAdminChatInfo };

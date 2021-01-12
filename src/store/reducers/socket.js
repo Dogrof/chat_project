@@ -5,8 +5,7 @@ const initialState = {
 const socket = function (state = initialState, { type, payload }) {
   switch (type) {
     case 'INIT_SOCKET':
-      console.log(123);
-    return {
+      return {
         io: payload,
       };
 

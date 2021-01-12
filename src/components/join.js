@@ -1,30 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from '../services/api/axios_conf';
-import { getChatInfo } from '../store/actions/chat';
-import { useDispatch } from 'react-redux';
+import { joinChat, getChatInfo, getAdminChatInfo } from '../store/actions/chat';
+import { useDispatch, useSelector } from 'react-redux';
 
 import joinBg from '../images/join-bg.png';
 
-function Join({ history, chat }) {
+function Join({ history }) {
   const dispatch = useDispatch();
+  const { user } = useSelector(({ user }) => ({
+    user: user.data,
+  }));
   const [chatTypes, setchatTypes] = useState([]);
 
   useEffect(() => {
-    axios.get('/chat-types').then((res) => {
-      const chatTypes = res.data;
-      setchatTypes(chatTypes);
-    });
-  }, []);
-  useEffect(() => {
-    const data = dispatch(getChatInfo());
+    let data;
+    if (user?.role.name === 'Admin') {
+      data = dispatch(getAdminChatInfo());
+    } else {
+      data = dispatch(getChatInfo());
+    }
     if (data) {
       history.push('/chat');
+    } else {
+      axios.get('/chat-types').then((res) => {
+        const chatTypes = res.data;
+        setchatTypes(chatTypes);
+      });
     }
-  }, []);
+  }, [dispatch, history, user]);
 
   const handleCLick = (e) => {
-    dispatch(getChatInfo(e.target.id));
+    dispatch(joinChat(e.target.id));
     history.push('/chat');
   };
 

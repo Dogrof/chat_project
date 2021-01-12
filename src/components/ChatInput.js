@@ -14,7 +14,7 @@ const ChatInput = ({ chat, socket }) => {
     return () => {
       // socket.close();
     };
-  }, [socket]);
+  }, [socket, dispatch]);
   const onTextareaChange = (e) => {
     setValue(e.target.value);
   };
