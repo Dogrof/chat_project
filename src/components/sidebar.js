@@ -38,11 +38,11 @@ const Sidebar = (props, sidebarRef) => {
         <h1>Chat</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
         <div className='sidebar__preview'>
-          {/* <ReactPlayer
+          <ReactPlayer
             url='https://youtu.be/LXb3EKWsInQ'
             width='100%'
             height='100%'
-          /> */}
+          />
         </div>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
         <div className='sidebar__contacts'>

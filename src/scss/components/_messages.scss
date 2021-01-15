@@ -6,7 +6,6 @@
 
   @include respond-to(phone) {
     padding: 20px;
-    background: #e5e5e5;
   }
 
   &__empty {
