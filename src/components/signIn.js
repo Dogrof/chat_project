@@ -2,18 +2,39 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginAction } from '../store/actions/user';
+import { toast } from 'react-toastify';
+
 import main_back from '../images/sign-back.png';
+import userIcon from '../images/user-icon.svg';
+import lockIcon from '../images/lock-icon.svg';
 
 function SignIn(props) {
   const [mail, setMail] = useState('admin@gmail.com');
   const [pass, setPass] = useState('test123');
   const dispatch = useDispatch();
 
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
-
-    await dispatch(loginAction({ mail, pass }));
+  if (window.localStorage.TOKEN) {
     props.history.push('/join');
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    dispatch(loginAction({ mail, pass })).then((data) => {
+      if (data) {
+        props.history.push('/join');
+      } else {
+        toast.error('Wrong email or password!', {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    });
   };
 
   return (
@@ -38,6 +59,7 @@ function SignIn(props) {
           onSubmit={handleSubmit}
         >
           <div className='field-wrap'>
+            <img src={`${userIcon}`} alt='' />
             <input
               type='text'
               required
@@ -48,6 +70,7 @@ function SignIn(props) {
             />
           </div>
           <div className='field-wrap'>
+            <img src={`${lockIcon}`} alt='' />
             <input
               type='password'
               required
@@ -61,7 +84,9 @@ function SignIn(props) {
             <input type='checkbox' defaultChecked='checked' />
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
           </div>
-          <button type='submit'>Go</button>
+          <button className='btn' type='submit'>
+            Go
+          </button>
         </form>
       </div>
     </div>

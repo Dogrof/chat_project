@@ -9,9 +9,9 @@ import ProtectedRoute from './components/ProtectedRoute';
 function App() {
   return (
     <Switch>
-      <ProtectedRoute exact path={['/', '/join']} component={Join} />
-      <ProtectedRoute path={'/chat'} component={Chat} />
-      <Route path='/auth' component={SignIn} />
+      <ProtectedRoute exact path={['/join']} component={Join} />
+      <ProtectedRoute exact path={['/', '/chat']} component={Chat} />
+      <Route exact path='/auth' component={SignIn} />
     </Switch>
   );
 }

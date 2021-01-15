@@ -11,7 +11,7 @@ const MembersList = ({ members }) => {
             <div className='members__item-content'>
               <h3>{member.name}</h3>
             </div>
-            <Avatar name={member.name} />
+            <Avatar data={member} />
           </div>
         );
       })}

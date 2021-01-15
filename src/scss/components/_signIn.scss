@@ -12,14 +12,6 @@ h1,
 p {
   margin: 0;
 }
-p,
-span,
-a,
-h1,
-h2,
-h3 {
-  font-family: Montserrat;
-}
 
 .sign-in {
   width: 100%;
@@ -27,73 +19,128 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.sign-in .inner-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-.sign-in .inner-container > h1 {
-  font-weight: 600;
-  font-size: 88px;
-  line-height: 107px;
-  text-align: center;
-  color: #ffffff;
-}
-.sign-in .inner-container > p {
-  font-size: 26px;
-  line-height: 32px;
-  text-align: center;
-  color: #ffffff;
-  margin: 30px 0 45px;
-}
-.sign-in .inner-container form .field-wrap input {
-  background: rgba(242, 242, 242, 0.4);
-  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
-  border-radius: 3px;
-  border: unset;
-  width: 70%;
-  height: 38px;
-  margin: 20px 0;
-  padding: 0 20px;
-  color: white;
-  -webkit-appearance: none;
-}
-.sign-in .inner-container form .field-wrap input::placeholder {
-  color: white;
-}
-input,
-input[type='password'],
-input[type='search'] {
-  cursor: auto;
-}
-.sign-in .inner-container form .checkbox {
-  display: flex;
-  align-items: center;
-  width: 60%;
-  text-align: left;
-  margin: 30px auto 50px;
-}
-.sign-in .inner-container form .checkbox input {
-  margin-right: 20px;
-}
-.sign-in .inner-container form .checkbox p {
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 20px;
-  color: #ffffff;
-}
-.sign-in .inner-container form button {
-  background: #ffffff;
-  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
-  border-radius: 3px;
-  border: unset;
-  width: 140px;
-  height: 40px;
-  border-radius: 0;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 22px;
-  color: #09203f;
+
+  .inner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    @include respond-to(phone) {
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+    & > h1 {
+      font-weight: 600;
+      font-size: 88px;
+      line-height: 107px;
+      text-align: center;
+      color: #ffffff;
+      @include respond-to(phone) {
+        font-size: 28px;
+        line-height: 34px;
+        margin: 0 0 25px;
+      }
+    }
+
+    & > p {
+      font-size: 26px;
+      line-height: 32px;
+      text-align: center;
+      color: #ffffff;
+      margin: 30px 0 45px;
+      @include respond-to(phone) {
+        font-size: 18px;
+        line-height: 22px;
+        margin: 0 0 40px;
+      }
+    }
+
+    form {
+      .checkbox {
+        display: flex;
+        align-items: center;
+        width: 60%;
+        text-align: left;
+        margin: 30px auto 50px;
+        @include respond-to(phone) {
+          margin: 15px 0 40px;
+          width: 100%;
+          text-align: right;
+        }
+        input {
+          display: inline-block;
+          width: 25px;
+          height: 22px;
+          margin: 0;
+          margin-right: 20px;
+
+          &:focus {
+            outline: none;
+          }
+          @include respond-to(phone) {
+            order: 1;
+            margin-right: 0;
+            margin-left: 10px;
+          }
+        }
+        p {
+          font-weight: 300;
+          font-size: 16px;
+          line-height: 20px;
+          color: #ffffff;
+          @include respond-to(phone) {
+            font-size: 14px;
+            line-height: 17px;
+          }
+        }
+      }
+      .field-wrap {
+        display: flex;
+        align-items: center;
+        background: rgba(242, 242, 242, 0.4);
+        padding: 0 20px;
+        width: 70%;
+        margin: 0 auto 20px;
+        box-sizing: border-box;
+
+        @include respond-to(phone) {
+          width: 100%;
+        }
+        img {
+          @include respond-to(phone) {
+            order: 1;
+          }
+        }
+        input {
+          background: none;
+          box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+          border-radius: 3px;
+          border: unset;
+          width: 100%;
+          padding: 15px 10px;
+          box-sizing: border-box;
+          color: white;
+          -webkit-appearance: none;
+          position: relative;
+
+          @include respond-to(phone) {
+            text-align: right;
+          }
+
+          &:focus {
+            outline: none;
+          }
+          &::placeholder {
+            color: white;
+          }
+        }
+      }
+    }
+
+    input,
+    input[type='password'],
+    input[type='search'] {
+      cursor: auto;
+    }
+  }
 }

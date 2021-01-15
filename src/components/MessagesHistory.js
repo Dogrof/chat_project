@@ -1,26 +1,28 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Topbar from './Topbar';
 import MessagesList from './MessagesList';
 import ChatInput from './ChatInput';
 
-const MessagesHistory = ({
-  socket,
-  chat,
-  userRole,
-  currentChat,
-  currentChatId,
-}) => {
+const MessagesHistory = ({ socket, user, currentChat, setSidebarVisible }) => {
   return (
     <div className='messages__history'>
-      <Topbar chat={currentChat} />
+      <Topbar
+        chat={currentChat}
+        setSidebarVisible={setSidebarVisible}
+        userRole={user?.role.name}
+      />
 
       {currentChat ? (
         <>
-          <MessagesList messages={currentChat?.messages} />
-          <ChatInput chat={currentChat} socket={socket} userRole={userRole} />
+          <MessagesList messages={currentChat?.messages} user={user} />
+          <ChatInput
+            chat={currentChat}
+            socket={socket}
+            userRole={user?.role.name}
+          />
         </>
       ) : (
-        <div className='messages__empty'></div>
+        <div className='messages__empty'>Choose a chat</div>
       )}
     </div>
   );

@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import './index.css';
 import './scss/index.scss';
 import App from './App';
 import { Provider } from 'react-redux';
-import axiosInstance from './services/api/axios_conf';
-import { logoutAction } from './store/actions/user';
 import reportWebVitals from './reportWebVitals';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import store from './store/store';
 
@@ -15,6 +14,8 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Provider store={store}>
+        <ToastContainer
+         />
         <App />
       </Provider>
     </Router>

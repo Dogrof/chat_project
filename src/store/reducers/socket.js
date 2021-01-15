@@ -8,7 +8,10 @@ const socket = function (state = initialState, { type, payload }) {
       return {
         io: payload,
       };
-
+    case 'LOGOUT':
+      return {
+        io: null,
+      };
     default:
       return state;
   }

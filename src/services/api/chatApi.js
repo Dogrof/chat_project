@@ -8,6 +8,12 @@ const chatApi = {
       console.log('Response error', error);
     }
   },
+  sendMesage: (chatId, value) => {
+    axios.post(`/client/chat/${chatId}`, { text: value });
+  },
+  sendAdminMesage: (chatId, value) => {
+    axios.post(`/admin/chat/${chatId}`, { text: value });
+  },
   getChat: async () => {
     try {
       const data = await axios.get('/client/chat');

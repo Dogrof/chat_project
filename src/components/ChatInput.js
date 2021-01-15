@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { addMessage } from '../store/actions/chat';
-import axios from '../services/api/axios_conf';
+import {
+  addMessage,
+  sendAdminMessageAction,
+  sendMessageAction,
+} from '../store/actions/chat';
+
 const ChatInput = ({ chat, socket, userRole }) => {
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
 
   const handleAddMessage = useCallback(
     (msg) => {
-      console.log(chat._id, msg.chat_id);
       if (chat._id === msg.chat_id) {
-        console.log(chat._id === msg.chat_id);
         dispatch(addMessage(msg));
       }
     },
@@ -20,23 +22,29 @@ const ChatInput = ({ chat, socket, userRole }) => {
   useEffect(() => {
     socket?.on('MESSAGE', handleAddMessage);
     return () => {
-      socket.removeEventListener('MESSAGE', handleAddMessage);
+      socket?.removeEventListener('MESSAGE', handleAddMessage);
     };
   }, [socket, dispatch, handleAddMessage]);
-  const onTextareaChange = (e) => {
-    setValue(e.target.value);
-  };
-  const onKeyPressed = (e) => {
+
+  const onTextareaChange = (e) => setValue(e.target.value);
+
+  const handleEnterPressed = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      if (userRole === 'Admin') {
-        axios.post(`/admin/chat/${chat._id}`, { text: value });
+      if (value) {
+        handleSendMessage();
       }
-      if (userRole === 'Client') {
-        axios.post(`/client/chat/${chat._id}`, { text: value });
-      }
-      setValue('');
     }
+  };
+
+  const handleSendMessage = () => {
+    if (userRole === 'Admin') {
+      dispatch(sendAdminMessageAction(chat._id, value));
+    }
+    if (userRole === 'Client') {
+      dispatch(sendMessageAction(chat._id, value));
+    }
+    setValue('');
   };
 
   return (
@@ -44,10 +52,10 @@ const ChatInput = ({ chat, socket, userRole }) => {
       <textarea
         value={value}
         onChange={onTextareaChange}
-        onKeyDown={onKeyPressed}
+        onKeyDown={handleEnterPressed}
         placeholder='Type a message...'
       />
-      <button>Type</button>
+      <button onClick={handleSendMessage} disabled={!value}>Type</button>
     </div>
   );
 };

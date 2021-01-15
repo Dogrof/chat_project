@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { getCurrentChatAction } from '../store/actions/chat';
 import clsx from 'clsx';
@@ -6,9 +6,11 @@ import Avatar from './Avatar';
 
 const ChatsList = ({ chats, currentChatId }) => {
   const dispatch = useDispatch();
+
   const handleChatClick = (id) => () => {
     dispatch(getCurrentChatAction(id));
   };
+
   return (
     <div className='chats'>
       {chats &&
@@ -22,9 +24,9 @@ const ChatsList = ({ chats, currentChatId }) => {
               onClick={handleChatClick(chat._id)}
             >
               <div className='chats__item-content'>
-                <h3>{chat.name}</h3>
+                <h3>{chat.members.map((m) => m.name).join(', ')}</h3>
               </div>
-              <Avatar name={chat.name} />
+              <Avatar data={chat} />
             </div>
           );
         })}
@@ -32,4 +34,4 @@ const ChatsList = ({ chats, currentChatId }) => {
   );
 };
 
-export default ChatsList;
+export default memo(ChatsList);

@@ -2,7 +2,6 @@ import axios from '../../services/api/axios_conf';
 
 const initialState = {
   data: null,
-  isAuth: !!window.localStorage.TOKEN,
 };
 
 const user = function (state = initialState, { type, payload }) {
@@ -10,10 +9,8 @@ const user = function (state = initialState, { type, payload }) {
     case 'SET_USER':
       return {
         data: payload,
-        isAuth: true,
       };
     case 'LOGOUT':
-      console.log(123);
       if (window.localStorage.TOKEN) {
         delete window.localStorage.TOKEN;
       }
@@ -22,7 +19,6 @@ const user = function (state = initialState, { type, payload }) {
       }
       return {
         data: null,
-        isAuth: false,
       };
     default:
       return state;

@@ -1,85 +1,118 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, useState, memo, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router';
+import { withRouter } from 'react-router-dom';
+import clsx from 'clsx';
 import {
   getChatInfo,
   getAdminChatInfo,
-  setCurrentChatId,
+  addNewChatAction,
+  addNewChatUserAction,
 } from '../store/actions/chat';
-import { setUser } from '../store/actions/user';
-import userApi from '../services/api/userApi';
-import { socketInit } from '../store/actions/socket';
+import { getUserAction } from '../store/actions/user';
 import Sidebar from './Sidebar';
 import MessagesHistory from './MessagesHistory';
 import ChatsList from './ChatsList';
 import MembersList from './MembersList';
 
-const Chat = () => {
-  const location = useLocation();
+const Chat = ({ history }) => {
   const dispatch = useDispatch();
-  const {
-    currentChatId,
-    currentChat,
-    chat,
-    socket,
-    user,
-    userRole,
-  } = useSelector(({ chat, socket, user }) => ({
-    chat: chat.data,
-    currentChat: chat.currentChat,
-    currentChatId: chat.currentChatId,
-    socket: socket.io,
-    user: user.data,
-    userRole: user.data?.role?.name,
-  }));
+  const { currentChat, chat, socket, user, userRole } = useSelector(
+    ({ chat, socket, user }) => ({
+      chat: chat.data,
+      currentChat: chat.currentChat,
+      socket: socket.io,
+      user: user.data,
+      userRole: user.data?.role?.name,
+    })
+  );
+  const [isVisible, setIsVisible] = useState(false);
+  const sidebarRef = useRef();
+
+  const handleOutsideClick = useCallback(
+    (e) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(e.target) &&
+        e.target.className !== 'burger' &&
+        e.target.className !== 'burger__block'
+      ) {
+        setIsVisible(false);
+      }
+    },
+    [sidebarRef]
+  );
+
+  const handleNewChat = useCallback(
+    (chat) => {
+      if (user?.role.name === 'Admin') {
+        dispatch(addNewChatAction(chat));
+      }
+    },
+    [user, dispatch]
+  );
+
+  const handleNewUser = useCallback(
+    (user) => {
+      dispatch(addNewChatUserAction(user));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
-    if (location.pathname.split('/')[1] === 'chat') {
-      dispatch(setCurrentChatId(location.pathname.split('/').pop()));
-    } else {
-      dispatch(setCurrentChatId(''));
-    }
-  }, [location, dispatch]);
+    socket?.on('NEW_CHAT', handleNewChat);
+    socket?.on('NEW_USER', handleNewUser);
+    return () => {
+      socket?.removeEventListener('NEW_CHAT', handleNewChat);
+      socket?.removeEventListener('NEW_USER', handleNewUser);
+    };
+  }, [socket, handleNewChat, handleNewUser]);
+
+  useEffect(() => {
+    document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
+  }, [handleOutsideClick]);
 
   useEffect(() => {
     if (!user) {
-      userApi.getUser().then((data) => {
-        dispatch(setUser(data));
-        dispatch(socketInit());
-      });
+      dispatch(getUserAction());
     }
   }, [user, dispatch]);
 
   useEffect(() => {
-    let data;
     if (!chat) {
       if (userRole === 'Admin') {
-        data = dispatch(getAdminChatInfo());
+        dispatch(getAdminChatInfo());
       }
       if (userRole === 'Client') {
-        data = dispatch(getChatInfo());
+        dispatch(getChatInfo());
       }
     }
   }, [chat, userRole, dispatch]);
 
   return (
     <div className='chat'>
-      <Sidebar />
-      {currentChatId ? (
-        <MessagesHistory
-          socket={socket}
-          chat={chat}
-          currentChat={currentChat}
-          currentChatId={currentChatId}
-          userRole={userRole}
-        />
-      ) : (
-        <div className='messages__empty'>Choose chat to start messaging</div>
-      )}
+      <Sidebar
+        isVisible={isVisible}
+        sidebarRef={sidebarRef}
+        history={history}
+        setSidebarVisible={setIsVisible}
+      />
 
-      <div className='chat__dialogs'>
+      <MessagesHistory
+        socket={socket}
+        currentChat={currentChat}
+        user={user}
+        setSidebarVisible={setIsVisible}
+      />
+
+      <div
+        className={clsx('chat__dialogs', {
+          'chat__dialogs--visible': currentChat,
+          'chat__dialogs--hide': userRole === 'Client',
+        })}
+      >
         {userRole === 'Admin' && (
-          <ChatsList chats={chat} currentChatId={currentChatId} />
+          <ChatsList chats={chat} currentChatId={currentChat?._id} />
         )}
         {userRole === 'Client' && (
           <MembersList members={currentChat?.members} />
@@ -89,4 +122,4 @@ const Chat = () => {
   );
 };
 
-export default memo(Chat);
+export default memo(withRouter(Chat));

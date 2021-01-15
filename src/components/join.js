@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from '../services/api/axios_conf';
-import { joinChat, getChatInfo, getAdminChatInfo } from '../store/actions/chat';
+import { joinChat, getChatInfo } from '../store/actions/chat';
+import { getUserAction } from '../store/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 
 import joinBg from '../images/join-bg.png';
@@ -12,32 +13,38 @@ function Join({ history }) {
     user: user.data,
   }));
   const [chatTypes, setchatTypes] = useState([]);
-
-  useEffect(() => {
-    let data;
-    const fetchData = async () => {
-      if (user?.role?.name === 'Admin') {
-        data = await dispatch(getAdminChatInfo());
-      }
-      if (user?.role?.name === 'Client') {
-        data = await dispatch(getChatInfo());
-      }
-
-      if (data) {
+  const checkData = useCallback(
+    (data) => {
+      if (Object.keys(data).length) {
         history.push('/chat');
       } else {
         axios.get('/chat-types').then((res) => {
-          const chatTypes = res.data;
+          const chatTypes = res?.data;
           setchatTypes(chatTypes);
         });
       }
-    };
-    fetchData();
-  }, [dispatch, history, user]);
+    },
+    [history]
+  );
+  useEffect(() => {
+    if (!user) {
+      dispatch(getUserAction()).then((data) => {
+        if (data?.role.name === 'Admin') {
+          history.push('/chat');
+        }
+        if (data?.role.name === 'Client') {
+          dispatch(getChatInfo()).then((data) => {
+            checkData(data);
+          });
+        }
+      });
+    }
+  }, [checkData, dispatch, user, history]);
 
-  const handleCLick = (e) => {
-    dispatch(joinChat(e.target.id));
-    history.push('/chat');
+  const handleCLick = async (e) => {
+    dispatch(joinChat(e.target.id)).then(() => {
+      history.push('/chat');
+    });
   };
 
   return (
@@ -48,7 +55,7 @@ function Join({ history }) {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit
         </p>
         <div className='join__buttons'></div>
-        {chatTypes.map((type) => {
+        {chatTypes?.map((type) => {
           return (
             <button
               key={type._id}
@@ -66,4 +73,4 @@ function Join({ history }) {
   );
 }
 
-export default withRouter(Join);
+export default withRouter(memo(Join));

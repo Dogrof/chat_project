@@ -1,12 +1,24 @@
 .members {
+  background-color: #ffffff;
   &__item {
+    position: relative;
     padding: 15px 25px;
     box-sizing: border-box;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    &:not(:last-of-type) {
-      margin-bottom: 25px;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      height: 1px;
+      left: 0;
+      right: 0;
+      background-color: #f2f2f2;
+      margin: 0 30px;
+    }
+    @include respond-to(phone) {
+      padding: 15px 20px;
     }
     &-content {
       text-align: right;
