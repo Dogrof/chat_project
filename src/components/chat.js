@@ -26,20 +26,20 @@ const Chat = ({ history }) => {
     })
   );
   const [isVisible, setIsVisible] = useState(false);
-  const sidebarRef = useRef();
+  const ref = useRef();
 
   const handleOutsideClick = useCallback(
     (e) => {
       if (
-        sidebarRef.current &&
-        !sidebarRef.current.contains(e.target) &&
+        ref.current &&
+        !ref.current.contains(e.target) &&
         e.target.className !== 'burger' &&
         e.target.className !== 'burger__block'
       ) {
         setIsVisible(false);
       }
     },
-    [sidebarRef]
+    [ref]
   );
 
   const handleNewChat = useCallback(
@@ -93,7 +93,7 @@ const Chat = ({ history }) => {
     <div className='chat'>
       <Sidebar
         isVisible={isVisible}
-        sidebarRef={sidebarRef}
+        ref={ref}
         history={history}
         setSidebarVisible={setIsVisible}
       />

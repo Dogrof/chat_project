@@ -9,7 +9,7 @@ import sidebarBackIcon from '../images/back-icon.svg';
 import phoneIcon from '../images/phone-icon.svg';
 import messageIcon from '../images/message-icon.svg';
 
-const Sidebar = (props, sidebarRef) => {
+const Sidebar = (props, ref) => {
   const dispatch = useDispatch();
 
   const onLogoutCLick = () => {
@@ -24,10 +24,12 @@ const Sidebar = (props, sidebarRef) => {
       className={clsx('sidebar', {
         'sidebar--visible': props.isVisible,
       })}
-      ref={sidebarRef}
-      style={{ backgroundImage: `url(${sidebarBg})` }}
+      ref={ref}
     >
-      <div className='sidebar__inner'>
+      <div
+        className='sidebar__inner'
+        style={{ backgroundImage: `url(${sidebarBg})` }}
+      >
         <img
           className='sidebar__close'
           src={sidebarBackIcon}

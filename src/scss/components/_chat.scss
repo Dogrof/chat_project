@@ -1,6 +1,10 @@
 .chat {
   display: flex;
   height: 100%;
+  padding-top: 25px;
+  @include respond-to(phone) {
+    padding-top: 0;
+  }
   &__dialogs {
     width: 25%;
     background: #ffffff;
