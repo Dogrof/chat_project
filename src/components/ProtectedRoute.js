@@ -9,7 +9,7 @@ function ProtectedRoute({ component: Component, ...rest }) {
         if (window.localStorage.TOKEN) {
           return <Component />;
         } else {
-          return <Redirect to='/auth' />;
+          return <Redirect to='/auth/signin' />;
         }
       }}
     />

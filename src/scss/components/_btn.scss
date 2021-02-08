@@ -13,4 +13,8 @@
   &:focus {
     outline: none;
   }
+  &--auth {
+    width: auto;
+    padding: 0 30px;
+  }
 }

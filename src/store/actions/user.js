@@ -46,6 +46,13 @@ export const loginAction = (credentials) => (dispatch) => {
     });
 };
 
+export const registerAction = (data) => (dispatch) => {
+  return userApi
+    .register(data)
+    .then((data) => data)
+    .catch((err) => err);
+};
+
 export const logoutAction = () => ({
   type: 'LOGOUT',
   payload: null,

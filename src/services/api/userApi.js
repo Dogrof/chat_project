@@ -12,6 +12,13 @@ const userApi = {
       console.log(err);
     }
   },
+  register: ({ mail, pass, name }) => {
+    return axios.post('/auth/reg', {
+      email: mail,
+      password: pass,
+      name,
+    });
+  },
   getUser: () => {
     return axios
       .get('/user')
